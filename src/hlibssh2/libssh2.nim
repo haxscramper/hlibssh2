@@ -10,7 +10,7 @@ type
     events*: culong
     revents*: culong ## Requested Events 
    
-  LIBSSH2_POLLFDfd* {.bycopy, importc.} = object
+  LIBSSH2_POLLFDfd* {.bycopy, union, importc.} = object
     socket*: libssh2_socket_t
     channel*: ptr LIBSSH2_CHANNEL
     listener*: ptr LIBSSH2_LISTENER ## Examined by checking internal state 
