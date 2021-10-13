@@ -1,5 +1,7 @@
 import hcparse
 
+startHax()
+
 let
   dir     = AbsDir"/usr/include"
   tmpDir  = getAppTempDir() / "libssh2"
