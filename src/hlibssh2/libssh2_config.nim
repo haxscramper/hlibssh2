@@ -1,4 +1,4 @@
-const libssh2Dl* = "libssh2"
+const libssh2Dl* {.strdefine.} = "libssh2.so"
 
 type
   LIBSSH2_CHANNEL*     {.importc, incompleteStruct.} = object
