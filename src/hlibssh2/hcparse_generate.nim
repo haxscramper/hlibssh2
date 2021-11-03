@@ -13,7 +13,7 @@ let
   ]
   map     = expandViaWave(files, tmpDir, baseCParseConf)
   conf    = initCSharedLibFixConf("ssh2", package, false, dir, map)
-  wrapped = tmpDir.wrapViaTs(conf)
+  wrapped = tmpDir.wrapViaTs(conf).postFixEntries(conf)
   outDir  = currentAbsSourceDir()
   grouped = writeFiles(outDir, wrapped, cCodegenConf, extraTypes = @{
     cxxName("_LIBSSH2_SESSION"): cxxLibImport(package, @["libssh2_config"])

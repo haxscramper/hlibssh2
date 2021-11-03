@@ -1,4 +1,28 @@
-const libssh2Dl* {.strdefine.} = "libssh2.so"
+const
+  libssh2LinkMode* {.strdefine.} = "dynlib"
+  libssh2Lib* {.strdefine.} = "libssh2.so"
+
+import std/[macros]
+
+macro ssh2Proc*(a: untyped): untyped =
+  result = a
+  result.addPragma(ident"importc")
+  when libssh2LinkMode == "dynlib":
+    result.addPragma(nnkExprColonExpr.newTree(
+      ident"dynlib", ident"libssh2Lib"))
+
+  elif libssh2LinkMode == ["static", "dlink"]:
+    # Default dynamic or static linking
+    discard
+
+  else:
+    {.error: "Invalid libssh2 link mode specified" &
+      " expected 'dynlib', 'static' or 'dlink', but got " &
+      libssh2LinkMode.}
+
+
+
+
 
 type
   LIBSSH2_CHANNEL*     {.importc, incompleteStruct.} = object
