@@ -9,9 +9,9 @@ macro ssh2Proc*(a: untyped): untyped =
   result.addPragma(ident"importc")
   when libssh2LinkMode == "dynlib":
     result.addPragma(nnkExprColonExpr.newTree(
-      ident"dynlib", ident"libssh2Lib"))
+      ident"dynlib", newLit(libssh2Lib)))
 
-  elif libssh2LinkMode == ["static", "dlink"]:
+  elif libssh2LinkMode in ["static", "dlink"]:
     # Default dynamic or static linking, handled by user via `{.passl.}`
     # etc.
     discard
