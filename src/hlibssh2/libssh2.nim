@@ -4,95 +4,83 @@ import
   ./libssh2_config
 
 type
+  LIBSSH2_AGENT* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+
+
   LIBSSH2_AGENT1* = LIBSSH2_AGENT
+
+  LIBSSH2_CHANNEL* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+
 
   LIBSSH2_CHANNEL1* = LIBSSH2_CHANNEL
 
+  LIBSSH2_KNOWNHOSTS* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+
+
   LIBSSH2_KNOWNHOSTS1* = LIBSSH2_KNOWNHOSTS
+
+  LIBSSH2_LISTENER* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+
 
   LIBSSH2_LISTENER1* = LIBSSH2_LISTENER
 
-  LIBSSH2_POLLFD* {.bycopy, header: "<ssh2/libssh2.h>", importc.} = object
+  LIBSSH2_POLLFD* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
     type_f* {.importc: "type".}: uint8
-    fd*:                         LIBSSH2_POLLFDfd ## LIBSSH2_POLLFD_* below
+    fd*:                         LIBSSH2_POLLFDfd
     events*:                     uint32
-    revents*:                    uint32           ## Requested Events
-                                                  ## Returned Events
+    revents*:                    uint32
 
   LIBSSH2_POLLFD1* = LIBSSH2_POLLFD
 
   LIBSSH2_POLLFDfd* {.bycopy, union, importc.} = object
     socket*:   libssh2_socket_t
     channel*:  ptr LIBSSH2_CHANNEL1
-    listener*: ptr LIBSSH2_LISTENER1 ## Examined by checking internal state
+    listener*: ptr LIBSSH2_LISTENER1
+
+  LIBSSH2_SESSION* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+
 
   LIBSSH2_SESSION1* = LIBSSH2_SESSION
 
-  LIBSSH2_USERAUTH_KBDINT_PROMPT* {.bycopy, header: "<ssh2/libssh2.h>", importc.} = object
-    ## Part of every banner, user specified or not
-    ## Defaults for pty requests
-    ## 1/4 second
-    ## 0.25 * 120 == 30 seconds
-    ## Malloc callbacks
+  LIBSSH2_USERAUTH_KBDINT_PROMPT* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
     text*:   cstring
     length*: cuint
     echo*:   uint8
 
   LIBSSH2_USERAUTH_KBDINT_PROMPT1* = LIBSSH2_USERAUTH_KBDINT_PROMPT
 
-  LIBSSH2_USERAUTH_KBDINT_RESPONSE* {.bycopy, header: "<ssh2/libssh2.h>", importc.} = object
+  LIBSSH2_USERAUTH_KBDINT_RESPONSE* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
     text*:   cstring
     length*: cuint
 
   LIBSSH2_USERAUTH_KBDINT_RESPONSE1* = LIBSSH2_USERAUTH_KBDINT_RESPONSE
 
-  libssh2_agent_publickey* {.bycopy, header: "<ssh2/libssh2.h>", importc.} = object
-    ## host format (2 bits)
-    ## key format (2 bits)
-    ## type of key (4 bits)
+  libssh2_agent_publickey* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
     magic*:    cuint
-    node*:     pointer   ## magic stored by the library
-    blob*:     ptr uint8 ## handle to the internal representation of key
-    blob_len*: csize_t   ## public key blob
-    comment*:  cstring   ## length of the public key blob
-                         ## comment in printable format
+    node*:     pointer
+    blob*:     ptr uint8
+    blob_len*: csize_t
+    comment*:  cstring
 
   libssh2_int64_t* = int64
 
-  libssh2_knownhost* {.bycopy, header: "<ssh2/libssh2.h>", importc.} = object
-    ## Poll FD Descriptor Types
-    ## Poll FD events/revents -- Match sys/poll.h where possible
-    ## revents only
-    ## Block Direction Types
-    ## Hash Types
-    ## Hostkey Types
-    ## Disconnect Codes (defined by SSH protocol)
-    ## Error Codes (defined by libssh2)
-    ## this is a define to provide the old (<= 1.2.7) name
-    ## Global API
-    ## Session API
-    ## Userauth API
-    ## Channel API
-    ## Extended Data Handling
-    ## Returned by any function that would block during a read/write operation
-    ## libssh2_channel_receive_window_adjust is DEPRECATED, do not use!
-    ## libssh2_channel_handle_extended_data is DEPRECATED, do not use!
-    ## DEPRECATED
-    ## libssh2_scp_recv is DEPRECATED, do not use!
-    ## Use libssh2_scp_recv2 for large (> 2GB) file support on windows
+  libssh2_knownhost* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
     magic*:    cuint
-    node*:     pointer ## magic stored by the library
-    name*:     cstring ## handle to the internal representation of this host
-    key*:      cstring ## this is NULL if no plain text host name exists
-    typemask*: cint    ## key in base64/printable format
+    node*:     pointer
+    name*:     cstring
+    key*:      cstring
+    typemask*: cint
 
   libssh2_socket_t* = cint
 
   libssh2_struct_stat* = stat
 
-  libssh2_struct_stat_size* = off_t
+  libssh2_struct_stat_size* = int32
 
-  libssh2_trace_handler_func* = proc(arg0: ptr LIBSSH2_SESSION1, arg1: pointer, arg2: cstring, arg3: csize_t): void{.cdecl.}
+  libssh2_trace_handler_func* = ptr proc(arg0: ptr LIBSSH2_SESSION,
+                                         arg1: pointer,
+                                         arg2: cstring,
+                                         arg3: uint32): void{.cdecl.}
 
   libssh2_uint64_t* = uint64
 
@@ -101,7 +89,7 @@ proc libssh2_init*(flags: cint): cint {.ssh2Proc, importc.}
 
 
 
-proc libssh2_exit*(a0: void): void {.ssh2Proc, importc.}
+proc libssh2_exit*(): void {.ssh2Proc, importc.}
 
 
 
@@ -121,9 +109,9 @@ proc libssh2_session_supported_algs*(
 
 
 proc libssh2_session_init_ex*(
-    my_alloc:   pointer,
-    my_free:    void,
-    my_realloc: pointer,
+    my_alloc:   ptr proc (arg0: csize_t; arg1: ptr pointer): pointer {.cdecl.},
+    my_free:    ptr proc (arg0: pointer; arg1: ptr pointer): void {.cdecl.},
+    my_realloc: ptr proc (arg0: pointer; arg1: csize_t; arg2: ptr pointer): pointer {.cdecl.},
     abstract:   pointer
   ): ptr LIBSSH2_SESSION1 {.ssh2Proc, importc.}
 
@@ -279,7 +267,8 @@ proc libssh2_userauth_password_ex*(
     username_len:     cuint,
     password:         cstring,
     password_len:     cuint,
-    passwd_change_cb: void
+    passwd_change_cb: ptr proc (arg0: ptr LIBSSH2_SESSION1; arg1: ptr cstring; arg2: ptr cint;
+                                arg3: ptr pointer): void {.cdecl.}
   ): cint {.ssh2Proc, importc.}
 
 
@@ -300,7 +289,8 @@ proc libssh2_userauth_publickey*(
     username:       cstring,
     pubkeydata:     ptr uint8,
     pubkeydata_len: csize_t,
-    sign_callback:  cint,
+    sign_callback:  ptr proc (arg0: ptr LIBSSH2_SESSION1; arg1: ptr ptr uint8; arg2: ptr csize_t;
+                              arg3: ptr uint8; arg4: csize_t; arg5: ptr pointer): cint {.cdecl.},
     abstract:       ptr pointer
   ): cint {.ssh2Proc, importc.}
 
@@ -338,7 +328,10 @@ proc libssh2_userauth_keyboard_interactive_ex*(
     session:           ptr LIBSSH2_SESSION1,
     username:          cstring,
     username_len:      cuint,
-    response_callback: void
+    response_callback: ptr proc (arg0: cstring; arg1: cint; arg2: cstring; arg3: cint; arg4: cint;
+                                 arg5: ptr LIBSSH2_USERAUTH_KBDINT_PROMPT1;
+                                 arg6: ptr LIBSSH2_USERAUTH_KBDINT_RESPONSE1; arg7: ptr pointer): void {.
+                           cdecl.}
   ): cint {.ssh2Proc, importc.}
 
 

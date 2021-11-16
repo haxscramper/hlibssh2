@@ -5,39 +5,39 @@ import
   ./libssh2_config
 
 type
+  LIBSSH2_SFTP* {.bycopy, incompleteStruct, header: "<ssh2/libssh2_sftp.h>", importc.} = object
+
+
   LIBSSH2_SFTP1* = LIBSSH2_SFTP
 
-  LIBSSH2_SFTP_ATTRIBUTES* {.bycopy, header: "<ssh2/libssh2_sftp.h>", importc.} = object
-    ## Flags for open_ex()
-    ## Flags for rename_ex()
-    ## Flags for stat_ex()
-    ## Flags for symlink_ex()
-    ## Flags for sftp_mkdir()
-    ## SFTP attribute flag bits
-    ## SFTP statvfs flag bits
+  LIBSSH2_SFTP_ATTRIBUTES* {.bycopy, union, header: "<ssh2/libssh2_sftp.h>", importc.} = object
     flags*:       uint32
     filesize*:    libssh2_uint64_t
+    uid*:         uint32
     gid*:         uint32
     permissions*: uint32
+    atime*:       uint32
     mtime*:       uint32
 
   LIBSSH2_SFTP_ATTRIBUTES1* = LIBSSH2_SFTP_ATTRIBUTES
 
+  LIBSSH2_SFTP_HANDLE* {.bycopy, incompleteStruct, header: "<ssh2/libssh2_sftp.h>", importc.} = object
+
+
   LIBSSH2_SFTP_HANDLE1* = LIBSSH2_SFTP_HANDLE
 
-  LIBSSH2_SFTP_STATVFS* {.bycopy, header: "<ssh2/libssh2_sftp.h>", importc.} = object
+  LIBSSH2_SFTP_STATVFS* {.bycopy, union, header: "<ssh2/libssh2_sftp.h>", importc.} = object
     f_bsize*:   libssh2_uint64_t
-    f_frsize*:  libssh2_uint64_t ## file system block size
-    f_blocks*:  libssh2_uint64_t ## fragment size
-    f_bfree*:   libssh2_uint64_t ## size of fs in f_frsize units
-    f_bavail*:  libssh2_uint64_t ## # free blocks
-    f_files*:   libssh2_uint64_t ## # free blocks for non-root
-    f_ffree*:   libssh2_uint64_t ## # inodes
-    f_favail*:  libssh2_uint64_t ## # free inodes
-    f_fsid*:    libssh2_uint64_t ## # free inodes for non-root
-    f_flag*:    libssh2_uint64_t ## file system ID
-    f_namemax*: libssh2_uint64_t ## mount flags
-                                 ## maximum filename length
+    f_frsize*:  libssh2_uint64_t
+    f_blocks*:  libssh2_uint64_t
+    f_bfree*:   libssh2_uint64_t
+    f_bavail*:  libssh2_uint64_t
+    f_files*:   libssh2_uint64_t
+    f_ffree*:   libssh2_uint64_t
+    f_favail*:  libssh2_uint64_t
+    f_fsid*:    libssh2_uint64_t
+    f_flag*:    libssh2_uint64_t
+    f_namemax*: libssh2_uint64_t
 
   LIBSSH2_SFTP_STATVFS1* = LIBSSH2_SFTP_STATVFS
 

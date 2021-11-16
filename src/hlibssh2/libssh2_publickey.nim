@@ -5,25 +5,28 @@ import
   ./libssh2_config
 
 type
+  LIBSSH2_PUBLICKEY* {.bycopy, incompleteStruct, header: "<ssh2/libssh2_publickey.h>", importc.} = object
+
+
   LIBSSH2_PUBLICKEY1* = LIBSSH2_PUBLICKEY
 
-  libssh2_publickey_attribute* {.bycopy, header: "<ssh2/libssh2_publickey.h>", importc.} = object
+  libssh2_publickey_attribute* = libssh2_publickey_attribute1
+
+  libssh2_publickey_attribute1* {.bycopy, union, header: "<ssh2/libssh2_publickey.h>", importc.} = object
     name*:      cstring
     name_len*:  uint32
     value*:     cstring
     value_len*: uint32
     mandatory*: char
 
-  libssh2_publickey_attribute1* = libssh2_publickey_attribute
-
-  libssh2_publickey_list* {.bycopy, header: "<ssh2/libssh2_publickey.h>", importc.} = object
+  libssh2_publickey_list* {.bycopy, union, header: "<ssh2/libssh2_publickey.h>", importc.} = object
     packet*:    ptr uint8
-    name*:      ptr uint8                        ## For freeing
+    name*:      ptr uint8
     name_len*:  uint32
     blob*:      ptr uint8
     blob_len*:  uint32
     num_attrs*: uint32
-    attrs*:     ptr libssh2_publickey_attribute1 ## free me
+    attrs*:     ptr libssh2_publickey_attribute
 
   libssh2_publickey_list1* = libssh2_publickey_list
 
@@ -42,7 +45,7 @@ proc libssh2_publickey_add_ex*(
     blob_len:  uint32,
     overwrite: char,
     num_attrs: uint32,
-    attrs:     ptr UncheckedArray[libssh2_publickey_attribute1]
+    attrs:     ptr UncheckedArray[libssh2_publickey_attribute]
   ): cint {.ssh2Proc, importc.}
 
 

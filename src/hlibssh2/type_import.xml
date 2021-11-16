@@ -1,104 +1,5 @@
 <type-map>
   <key>
-    <scopes>LIBSSH2_PUBLICKEY</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_publickey.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>_libssh2_publickey_attribute</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_publickey.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>libssh2_publickey_attribute</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_publickey.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>_libssh2_publickey_list</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_publickey.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>libssh2_publickey_list</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_publickey.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>LIBSSH2_SFTP</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_sftp.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>LIBSSH2_SFTP_HANDLE</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_sftp.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>LIBSSH2_SFTP_ATTRIBUTES</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_sftp.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>LIBSSH2_SFTP_STATVFS</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_sftp.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>_LIBSSH2_SFTP_ATTRIBUTES</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_sftp.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
-    <scopes>_LIBSSH2_SFTP_STATVFS</scopes>
-  </key>
-  <value>
-    <library>hlibssh2</library>
-    <importPath>libssh2_sftp.h</importPath>
-  </value>
-</type-map>
-<type-map>
-  <key>
     <scopes>libssh2_uint64_t</scopes>
   </key>
   <value>
@@ -266,6 +167,105 @@
   <value>
     <library>hlibssh2</library>
     <importPath>libssh2.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>LIBSSH2_SFTP</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_sftp.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>LIBSSH2_SFTP_HANDLE</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_sftp.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>LIBSSH2_SFTP_ATTRIBUTES</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_sftp.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>LIBSSH2_SFTP_STATVFS</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_sftp.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>_LIBSSH2_SFTP_ATTRIBUTES</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_sftp.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>_LIBSSH2_SFTP_STATVFS</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_sftp.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>LIBSSH2_PUBLICKEY</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_publickey.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>_libssh2_publickey_attribute</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_publickey.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>libssh2_publickey_attribute</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_publickey.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>_libssh2_publickey_list</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_publickey.h</importPath>
+  </value>
+</type-map>
+<type-map>
+  <key>
+    <scopes>libssh2_publickey_list</scopes>
+  </key>
+  <value>
+    <library>hlibssh2</library>
+    <importPath>libssh2_publickey.h</importPath>
   </value>
 </type-map>
 <type-map>
