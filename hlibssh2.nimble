@@ -1,4 +1,4 @@
-version       = "0.1.3"
+version       = "0.1.4"
 author        = "haxscramper"
 description   = "Nim wrapper for libssh2 library"
 license       = "Apache-2.0"
