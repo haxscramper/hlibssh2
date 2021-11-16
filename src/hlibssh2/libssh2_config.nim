@@ -12,7 +12,8 @@ macro ssh2Proc*(a: untyped): untyped =
       ident"dynlib", ident"libssh2Lib"))
 
   elif libssh2LinkMode == ["static", "dlink"]:
-    # Default dynamic or static linking
+    # Default dynamic or static linking, handled by user via `{.passl.}`
+    # etc.
     discard
 
   else:
