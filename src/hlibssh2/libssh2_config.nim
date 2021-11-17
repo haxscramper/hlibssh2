@@ -21,10 +21,6 @@ macro ssh2Proc*(a: untyped): untyped =
       " expected 'dynlib', 'static' or 'dlink', but got " &
       libssh2LinkMode.}
 
-
-
-
-
 type
   # LIBSSH2_CHANNEL*     {.importc, incompleteStruct.} = object
   # LIBSSH2_LISTENER*    {.importc, incompleteStruct.} = object
