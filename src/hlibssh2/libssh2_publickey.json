@@ -1,0 +1,480 @@
+{
+  "records": [
+    {
+      "name": {
+        "name": "LIBSSH2_PUBLICKEY",
+        "dbgOrigin": " typedef type hlibssh2/libssh2/include/libssh2_publickey.h:53:49 typedef type hlibssh2/libssh2/include/libssh2_publickey.h:53:49 > typedef!=nullptr > struct"
+      },
+      "recordDefName": {
+        "name": "_LIBSSH2_PUBLICKEY",
+        "tag": "TypeTagStruct"
+      },
+      "isForwardDecl": true,
+      "hasName": true
+    },
+    {
+      "name": {
+        "name": "libssh2_publickey_attribute",
+        "dbgOrigin": " typedef type hlibssh2/libssh2/include/libssh2_publickey.h:61:3 typedef type hlibssh2/libssh2/include/libssh2_publickey.h:61:3 > typedef!=nullptr > struct"
+      },
+      "fields": [
+        {
+          "name": "name",
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isConst": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-const >char",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "name_len",
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "value",
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isConst": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-const >char",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "value_len",
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "mandatory",
+          "type": {
+            "name": "char",
+            "dbgOrigin": " >char",
+            "isBuiltin": true
+          }
+        }
+      ],
+      "recordDefName": {
+        "name": "_libssh2_publickey_attribute",
+        "tag": "TypeTagStruct"
+      },
+      "hasName": true
+    },
+    {
+      "name": {
+        "name": "libssh2_publickey_list",
+        "dbgOrigin": " typedef type hlibssh2/libssh2/include/libssh2_publickey.h:72:3 typedef type hlibssh2/libssh2/include/libssh2_publickey.h:72:3 > typedef!=nullptr > struct"
+      },
+      "fields": [
+        {
+          "name": "packet",
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr >char",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "name",
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isConst": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-const >char",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "name_len",
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "blob",
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isConst": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-const >char",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "blob_len",
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "num_attrs",
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          }
+        },
+        {
+          "name": "attrs",
+          "type": {
+            "name": "libssh2_publickey_attribute",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:61:3"
+          }
+        }
+      ],
+      "recordDefName": {
+        "name": "_libssh2_publickey_list",
+        "tag": "TypeTagStruct"
+      },
+      "hasName": true
+    }
+  ],
+  "functions": [
+    {
+      "name": "libssh2_publickey_init",
+      "resultTy": {
+        "name": "LIBSSH2_PUBLICKEY",
+        "qualifiers": [
+          {
+            "isPointer": true
+          }
+        ],
+        "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:53:49"
+      },
+      "arguments": [
+        {
+          "type": {
+            "name": "LIBSSH2_SESSION",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2.h:424:53"
+          },
+          "name": "session"
+        }
+      ]
+    },
+    {
+      "name": "libssh2_publickey_add_ex",
+      "resultTy": {
+        "name": "int",
+        "dbgOrigin": " >builtin/unqual",
+        "isBuiltin": true
+      },
+      "arguments": [
+        {
+          "type": {
+            "name": "LIBSSH2_PUBLICKEY",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:53:49"
+          },
+          "name": "pkey"
+        },
+        {
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isConst": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-const >char",
+            "isBuiltin": true
+          },
+          "name": "name"
+        },
+        {
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          },
+          "name": "name_len"
+        },
+        {
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isConst": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-const >char",
+            "isBuiltin": true
+          },
+          "name": "blob"
+        },
+        {
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          },
+          "name": "blob_len"
+        },
+        {
+          "type": {
+            "name": "char",
+            "dbgOrigin": " >char",
+            "isBuiltin": true
+          },
+          "name": "overwrite"
+        },
+        {
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          },
+          "name": "num_attrs"
+        },
+        {
+          "type": {
+            "name": "libssh2_publickey_attribute",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:61:3"
+          },
+          "name": "attrs"
+        }
+      ]
+    },
+    {
+      "name": "libssh2_publickey_remove_ex",
+      "resultTy": {
+        "name": "int",
+        "dbgOrigin": " >builtin/unqual",
+        "isBuiltin": true
+      },
+      "arguments": [
+        {
+          "type": {
+            "name": "LIBSSH2_PUBLICKEY",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:53:49"
+          },
+          "name": "pkey"
+        },
+        {
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isConst": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-const >char",
+            "isBuiltin": true
+          },
+          "name": "name"
+        },
+        {
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          },
+          "name": "name_len"
+        },
+        {
+          "type": {
+            "name": "char",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isConst": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-const >char",
+            "isBuiltin": true
+          },
+          "name": "blob"
+        },
+        {
+          "type": {
+            "name": "unsigned long",
+            "dbgOrigin": " >builtin/unqual",
+            "isBuiltin": true
+          },
+          "name": "blob_len"
+        }
+      ]
+    },
+    {
+      "name": "libssh2_publickey_list_fetch",
+      "resultTy": {
+        "name": "int",
+        "dbgOrigin": " >builtin/unqual",
+        "isBuiltin": true
+      },
+      "arguments": [
+        {
+          "type": {
+            "name": "LIBSSH2_PUBLICKEY",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:53:49"
+          },
+          "name": "pkey"
+        },
+        {
+          "type": {
+            "name": "unsigned long",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr >builtin/unqual",
+            "isBuiltin": true
+          },
+          "name": "num_keys"
+        },
+        {
+          "type": {
+            "name": "libssh2_publickey_list",
+            "qualifiers": [
+              {
+                "isPointer": true
+              },
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:72:3"
+          },
+          "name": "pkey_list"
+        }
+      ]
+    },
+    {
+      "name": "libssh2_publickey_list_free",
+      "resultTy": {
+        "name": "void",
+        "isBuiltin": true
+      },
+      "arguments": [
+        {
+          "type": {
+            "name": "LIBSSH2_PUBLICKEY",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:53:49"
+          },
+          "name": "pkey"
+        },
+        {
+          "type": {
+            "name": "libssh2_publickey_list",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:72:3"
+          },
+          "name": "pkey_list"
+        }
+      ]
+    },
+    {
+      "name": "libssh2_publickey_shutdown",
+      "resultTy": {
+        "name": "int",
+        "dbgOrigin": " >builtin/unqual",
+        "isBuiltin": true
+      },
+      "arguments": [
+        {
+          "type": {
+            "name": "LIBSSH2_PUBLICKEY",
+            "qualifiers": [
+              {
+                "isPointer": true
+              }
+            ],
+            "dbgOrigin": " T-pointer >ref/ptr typedef type hlibssh2/libssh2/include/libssh2_publickey.h:53:49"
+          },
+          "name": "pkey"
+        }
+      ]
+    }
+  ]
+}
