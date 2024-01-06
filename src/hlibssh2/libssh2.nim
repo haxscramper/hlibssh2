@@ -1,866 +1,666 @@
-{.push warning[UnusedImport]:off.}
-
-import
-  ./libssh2_config
+import "./libssh2_config.nim" ## From gen file
 
 type
-  LIBSSH2_AGENT* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+  LIBSSH2_USERAUTH_KBDINT_PROMPT* {.header: "<libssh2.h>", importc, bycopy.} = object
+    text   *: ptr char
+    length *: csize_t
+    echo   *: char
+
+  LIBSSH2_USERAUTH_KBDINT_RESPONSE* {.header: "<libssh2.h>", importc, bycopy.} = object
+    text   *: ptr char
+    length *: cuint
+
+  LIBSSH2_SK_SIG_INFO* {.header: "<libssh2.h>", importc, bycopy.} = object
+    flags     *: uint8
+    counter   *: uint32
+    sig_r     *: ptr char
+    sig_r_len *: csize_t
+    sig_s     *: ptr char
+    sig_s_len *: csize_t
+
+  LIBSSH2_SESSION* {.header: "<libssh2.h>", importc, incompleteStruct.} = object
 
 
-  LIBSSH2_AGENT1* = LIBSSH2_AGENT
-
-  LIBSSH2_CHANNEL* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+  LIBSSH2_CHANNEL* {.header: "<libssh2.h>", importc, incompleteStruct.} = object
 
 
-  LIBSSH2_CHANNEL1* = LIBSSH2_CHANNEL
-
-  LIBSSH2_KNOWNHOSTS* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+  LIBSSH2_LISTENER* {.header: "<libssh2.h>", importc, incompleteStruct.} = object
 
 
-  LIBSSH2_KNOWNHOSTS1* = LIBSSH2_KNOWNHOSTS
-
-  LIBSSH2_LISTENER* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+  LIBSSH2_KNOWNHOSTS* {.header: "<libssh2.h>", importc, incompleteStruct.} = object
 
 
-  LIBSSH2_LISTENER1* = LIBSSH2_LISTENER
-
-  LIBSSH2_POLLFD* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
-    type_f* {.importc: "type".}: uint8
-    fd*:                         LIBSSH2_POLLFDfd
-    events*:                     uint32
-    revents*:                    uint32
-
-  LIBSSH2_POLLFD1* = LIBSSH2_POLLFD
-
-  LIBSSH2_POLLFDfd* {.bycopy, union, importc.} = object
-    socket*:   libssh2_socket_t
-    channel*:  ptr LIBSSH2_CHANNEL1
-    listener*: ptr LIBSSH2_LISTENER1
-
-  LIBSSH2_SESSION* {.bycopy, incompleteStruct, header: "<ssh2/libssh2.h>", importc.} = object
+  LIBSSH2_AGENT* {.header: "<libssh2.h>", importc, incompleteStruct.} = object
 
 
-  LIBSSH2_SESSION1* = LIBSSH2_SESSION
+  LIBSSH2_PRIVKEY_SK* {.header: "<libssh2.h>", importc, bycopy.} = object
+    algorithm     *: cint
+    flags         *: uint8
+    application   *: cstring
+    key_handle    *: cstring
+    handle_len    *: csize_t
+    sign_callback *: proc (a0: ptr LIBSSH2_SESSION, a1: ptr LIBSSH2_SK_SIG_INFO, a2: cstring, a3: csize_t, a4: cint, a5: uint8, a6: cstring, a7: cstring, a8: csize_t, a9: ptr pointer): cint
+    orig_abstract *: ptr pointer
 
-  LIBSSH2_USERAUTH_KBDINT_PROMPT* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
-    text*:   cstring
-    length*: cuint
-    echo*:   uint8
+  LIBSSH2_POLLFD* {.header: "<libssh2.h>", importc, bycopy.} = object
+    `type`  *: char
+    fd      *:
+    events  *: culong
+    revents *: culong
 
-  LIBSSH2_USERAUTH_KBDINT_PROMPT1* = LIBSSH2_USERAUTH_KBDINT_PROMPT
+  libssh2_knownhost* {.header: "<libssh2.h>", importc, bycopy.} = object
+    magic    *: cuint
+    node     *: pointer
+    name     *: ptr char
+    key      *: ptr char
+    typemask *: cint
 
-  LIBSSH2_USERAUTH_KBDINT_RESPONSE* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
-    text*:   cstring
-    length*: cuint
+  libssh2_agent_publickey* {.header: "<libssh2.h>", importc, bycopy.} = object
+    magic    *: cuint
+    node     *: pointer
+    blob     *: ptr char
+    blob_len *: csize_t
+    comment  *: ptr char
 
-  LIBSSH2_USERAUTH_KBDINT_RESPONSE1* = LIBSSH2_USERAUTH_KBDINT_RESPONSE
+  c_libssh2_crypto_engine_t* {.size: sizeof(cint).} = enum
+    c_libssh2_no_crypto = 0
+    c_libssh2_openssl   = 1
+    c_libssh2_gcrypt    = 2
+    c_libssh2_mbedtls   = 3
+    c_libssh2_wincng    = 4
+    c_libssh2_os400qc3  = 5
 
-  libssh2_agent_publickey* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
-    magic*:    cuint
-    node*:     pointer
-    blob*:     ptr uint8
-    blob_len*: csize_t
-    comment*:  cstring
+  libssh2_crypto_engine_t* = enum
+    libssh2_no_crypto = 0
+    libssh2_openssl   = 1
+    libssh2_gcrypt    = 2
+    libssh2_mbedtls   = 3
+    libssh2_wincng    = 4
+    libssh2_os400qc3  = 5
 
-  libssh2_int64_t* = int64
+  libssh2_uint64_t* = culonglong
 
-  libssh2_knownhost* {.bycopy, union, header: "<ssh2/libssh2.h>", importc.} = object
-    magic*:    cuint
-    node*:     pointer
-    name*:     cstring
-    key*:      cstring
-    typemask*: cint
+  libssh2_int64_t* = clonglong
 
   libssh2_socket_t* = cint
 
-  libssh2_struct_stat* = stat
+  libssh2_struct_stat_size* = off_t
 
-  libssh2_struct_stat_size* = int32
+  libssh2_cb_generic* = proc (): void
 
-  libssh2_trace_handler_func* = ptr proc(arg0: ptr LIBSSH2_SESSION,
-                                         arg1: pointer,
-                                         arg2: cstring,
-                                         arg3: uint32): void{.cdecl.}
-
-  libssh2_uint64_t* = uint64
-
-
-proc libssh2_init*(flags: cint): cint {.ssh2Proc, importc.}
+  libssh2_trace_handler_func* = proc (a0: ptr LIBSSH2_SESSION, a1: pointer, a2: cstring, a3: csize_t): void
 
 
 
-proc libssh2_exit*(): void {.ssh2Proc, importc.}
+converter to_libssh2_crypto_engine_t*(arg: c_libssh2_crypto_engine_t): libssh2_crypto_engine_t =
+  case arg:
+    of c_libssh2_no_crypto: libssh2_no_crypto
+    of c_libssh2_openssl  : libssh2_openssl
+    of c_libssh2_gcrypt   : libssh2_gcrypt
+    of c_libssh2_mbedtls  : libssh2_mbedtls
+    of c_libssh2_wincng   : libssh2_wincng
+    of c_libssh2_os400qc3 : libssh2_os400qc3
 
+proc to_c_libssh2_crypto_engine_t*(arg: libssh2_crypto_engine_t): c_libssh2_crypto_engine_t =
+  case arg:
+    of libssh2_no_crypto: c_libssh2_no_crypto
+    of libssh2_openssl  : c_libssh2_openssl
+    of libssh2_gcrypt   : c_libssh2_gcrypt
+    of libssh2_mbedtls  : c_libssh2_mbedtls
+    of libssh2_wincng   : c_libssh2_wincng
+    of libssh2_os400qc3 : c_libssh2_os400qc3
 
+converter toCInt*(arg: c_libssh2_crypto_engine_t): cint = cint(ord(arg))
 
-proc libssh2_free*(
-    session: ptr LIBSSH2_SESSION1,
-    arg_ptr: pointer
-  ): void {.ssh2Proc, importc.}
+converter toCInt*(arg: libssh2_crypto_engine_t): cint = cint(ord(to_c_libssh2_crypto_engine_t(arg)))
 
+converter toCInt*(args: set[libssh2_crypto_engine_t]): cint =
+  for value in items(args):
+    case value:
+      of libssh2_no_crypto: result = cint(result or 0)
+      of libssh2_openssl  : result = cint(result or 1)
+      of libssh2_gcrypt   : result = cint(result or 2)
+      of libssh2_mbedtls  : result = cint(result or 3)
+      of libssh2_wincng   : result = cint(result or 4)
+      of libssh2_os400qc3 : result = cint(result or 5)
 
+func `-`*(arg: c_libssh2_crypto_engine_t, offset: int): cint = cast[c_libssh2_crypto_engine_t](ord(arg) - offset)
+
+func `-`*(offset: int, arg: c_libssh2_crypto_engine_t): cint = cast[c_libssh2_crypto_engine_t](ord(arg) - offset)
+
+func `+`*(arg: c_libssh2_crypto_engine_t, offset: int): cint = cast[c_libssh2_crypto_engine_t](ord(arg) + offset)
+
+func `+`*(offset: int, arg: c_libssh2_crypto_engine_t): cint = cast[c_libssh2_crypto_engine_t](ord(arg) + offset)
+
+proc libssh2_sign_sk*(
+    session: ptr LIBSSH2_SESSION,
+    sig: cstringArray,
+    sig_len: ptr csize_t,
+    data: cstring,
+    data_len: csize_t,
+    abstract: ptr pointer,
+): cint {.importc: "libssh2_sign_sk", header: "<libssh2.h>".}
+
+proc libssh2_init*(flags: cint): cint {.importc: "libssh2_init", header: "<libssh2.h>".}
+
+proc libssh2_exit*(): void {.importc: "libssh2_exit", header: "<libssh2.h>".}
+
+proc libssh2_free*(session: ptr LIBSSH2_SESSION, `ptr`: pointer): void {.importc: "libssh2_free", header: "<libssh2.h>".}
 
 proc libssh2_session_supported_algs*(
-    session:     ptr LIBSSH2_SESSION1,
+    session: ptr LIBSSH2_SESSION,
     method_type: cint,
-    algs:        ptr ptr cstring
-  ): cint {.ssh2Proc, importc.}
-
-
+    algs: ptr ptr ptr char,
+): cint {.importc: "libssh2_session_supported_algs", header: "<libssh2.h>".}
 
 proc libssh2_session_init_ex*(
-    my_alloc:   ptr proc (arg0: csize_t; arg1: ptr pointer): pointer {.cdecl.},
-    my_free:    ptr proc (arg0: pointer; arg1: ptr pointer): void {.cdecl.},
-    my_realloc: ptr proc (arg0: pointer; arg1: csize_t; arg2: ptr pointer): pointer {.cdecl.},
-    abstract:   pointer
-  ): ptr LIBSSH2_SESSION1 {.ssh2Proc, importc.}
+    my_alloc: proc (a0: csize_t, a1: ptr pointer): pointer,
+    my_free: proc (a0: pointer, a1: ptr pointer): void,
+    my_realloc: proc (a0: pointer, a1: csize_t, a2: ptr pointer): pointer,
+    abstract: pointer,
+): ptr LIBSSH2_SESSION {.importc: "libssh2_session_init_ex", header: "<libssh2.h>".}
 
+proc libssh2_session_abstract*(session: ptr LIBSSH2_SESSION): ptr pointer {.importc: "libssh2_session_abstract", header: "<libssh2.h>".}
 
-
-proc libssh2_session_abstract*(
-    session: ptr LIBSSH2_SESSION1
-  ): ptr pointer {.ssh2Proc, importc.}
-
-
+proc libssh2_session_callback_set2*(
+    session: ptr LIBSSH2_SESSION,
+    cbtype: cint,
+    callback: ptr libssh2_cb_generic,
+): ptr libssh2_cb_generic {.importc: "libssh2_session_callback_set2", header: "<libssh2.h>".}
 
 proc libssh2_session_callback_set*(
-    session:  ptr LIBSSH2_SESSION1,
-    cbtype:   cint,
-    callback: pointer
-  ): pointer {.ssh2Proc, importc.}
+    session: ptr LIBSSH2_SESSION,
+    cbtype: cint,
+    callback: pointer,
+): pointer {.importc: "libssh2_session_callback_set", header: "<libssh2.h>".}
 
+proc libssh2_session_banner_set*(session: ptr LIBSSH2_SESSION, banner: cstring): cint {.importc: "libssh2_session_banner_set", header: "<libssh2.h>".}
 
+proc libssh2_banner_set*(session: ptr LIBSSH2_SESSION, banner: cstring): cint {.importc: "libssh2_banner_set", header: "<libssh2.h>".}
 
-proc libssh2_session_banner_set*(
-    session: ptr LIBSSH2_SESSION1,
-    banner:  cstring
-  ): cint {.ssh2Proc, importc.}
+proc libssh2_session_startup*(session: ptr LIBSSH2_SESSION, sock: cint): cint {.importc: "libssh2_session_startup", header: "<libssh2.h>".}
 
-
-
-proc libssh2_banner_set*(
-    session: ptr LIBSSH2_SESSION1,
-    banner:  cstring
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_session_startup*(
-    session: ptr LIBSSH2_SESSION1,
-    sock:    cint
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_session_handshake*(
-    session: ptr LIBSSH2_SESSION1,
-    sock:    libssh2_socket_t
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_session_handshake*(session: ptr LIBSSH2_SESSION, sock: libssh2_socket_t): cint {.importc: "libssh2_session_handshake", header: "<libssh2.h>".}
 
 proc libssh2_session_disconnect_ex*(
-    session:     ptr LIBSSH2_SESSION1,
-    reason:      cint,
+    session: ptr LIBSSH2_SESSION,
+    reason: cint,
     description: cstring,
-    lang:        cstring
-  ): cint {.ssh2Proc, importc.}
+    lang: cstring,
+): cint {.importc: "libssh2_session_disconnect_ex", header: "<libssh2.h>".}
 
+proc libssh2_session_free*(session: ptr LIBSSH2_SESSION): cint {.importc: "libssh2_session_free", header: "<libssh2.h>".}
 
-
-proc libssh2_session_free*(
-    session: ptr LIBSSH2_SESSION1
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_hostkey_hash*(
-    session:   ptr LIBSSH2_SESSION1,
-    hash_type: cint
-  ): cstring {.ssh2Proc, importc.}
-
-
+proc libssh2_hostkey_hash*(session: ptr LIBSSH2_SESSION, hash_type: cint): cstring {.importc: "libssh2_hostkey_hash", header: "<libssh2.h>".}
 
 proc libssh2_session_hostkey*(
-    session: ptr LIBSSH2_SESSION1,
-    len:     ptr csize_t,
-    type_f:  ptr cint
-  ): cstring {.ssh2Proc, importc.}
-
-
+    session: ptr LIBSSH2_SESSION,
+    len: ptr csize_t,
+    `type`: ptr cint,
+): cstring {.importc: "libssh2_session_hostkey", header: "<libssh2.h>".}
 
 proc libssh2_session_method_pref*(
-    session:     ptr LIBSSH2_SESSION1,
+    session: ptr LIBSSH2_SESSION,
     method_type: cint,
-    prefs:       cstring
-  ): cint {.ssh2Proc, importc.}
+    prefs: cstring,
+): cint {.importc: "libssh2_session_method_pref", header: "<libssh2.h>".}
 
-
-
-proc libssh2_session_methods*(
-    session:     ptr LIBSSH2_SESSION1,
-    method_type: cint
-  ): cstring {.ssh2Proc, importc.}
-
-
+proc libssh2_session_methods*(session: ptr LIBSSH2_SESSION, method_type: cint): cstring {.importc: "libssh2_session_methods", header: "<libssh2.h>".}
 
 proc libssh2_session_last_error*(
-    session:    ptr LIBSSH2_SESSION1,
-    errmsg:     ptr cstring,
+    session: ptr LIBSSH2_SESSION,
+    errmsg: cstringArray,
     errmsg_len: ptr cint,
-    want_buf:   cint
-  ): cint {.ssh2Proc, importc.}
+    want_buf: cint,
+): cint {.importc: "libssh2_session_last_error", header: "<libssh2.h>".}
 
-
-
-proc libssh2_session_last_errno*(
-    session: ptr LIBSSH2_SESSION1
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_session_last_errno*(session: ptr LIBSSH2_SESSION): cint {.importc: "libssh2_session_last_errno", header: "<libssh2.h>".}
 
 proc libssh2_session_set_last_error*(
-    session: ptr LIBSSH2_SESSION1,
+    session: ptr LIBSSH2_SESSION,
     errcode: cint,
-    errmsg:  cstring
-  ): cint {.ssh2Proc, importc.}
+    errmsg: cstring,
+): cint {.importc: "libssh2_session_set_last_error", header: "<libssh2.h>".}
 
-
-
-proc libssh2_session_block_directions*(
-    session: ptr LIBSSH2_SESSION1
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_session_block_directions*(session: ptr LIBSSH2_SESSION): cint {.importc: "libssh2_session_block_directions", header: "<libssh2.h>".}
 
 proc libssh2_session_flag*(
-    session: ptr LIBSSH2_SESSION1,
-    flag:    cint,
-    value:   cint
-  ): cint {.ssh2Proc, importc.}
+    session: ptr LIBSSH2_SESSION,
+    flag: cint,
+    value: cint,
+): cint {.importc: "libssh2_session_flag", header: "<libssh2.h>".}
 
-
-
-proc libssh2_session_banner_get*(
-    session: ptr LIBSSH2_SESSION1
-  ): cstring {.ssh2Proc, importc.}
-
-
+proc libssh2_session_banner_get*(session: ptr LIBSSH2_SESSION): cstring {.importc: "libssh2_session_banner_get", header: "<libssh2.h>".}
 
 proc libssh2_userauth_list*(
-    session:      ptr LIBSSH2_SESSION1,
-    username:     cstring,
-    username_len: cuint
-  ): cstring {.ssh2Proc, importc.}
+    session: ptr LIBSSH2_SESSION,
+    username: cstring,
+    username_len: cuint,
+): ptr char {.importc: "libssh2_userauth_list", header: "<libssh2.h>".}
 
+proc libssh2_userauth_banner*(session: ptr LIBSSH2_SESSION, banner: cstringArray): cint {.importc: "libssh2_userauth_banner", header: "<libssh2.h>".}
 
-
-proc libssh2_userauth_authenticated*(
-    session: ptr LIBSSH2_SESSION1
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_userauth_authenticated*(session: ptr LIBSSH2_SESSION): cint {.importc: "libssh2_userauth_authenticated", header: "<libssh2.h>".}
 
 proc libssh2_userauth_password_ex*(
-    session:          ptr LIBSSH2_SESSION1,
-    username:         cstring,
-    username_len:     cuint,
-    password:         cstring,
-    password_len:     cuint,
-    passwd_change_cb: ptr proc (arg0: ptr LIBSSH2_SESSION1; arg1: ptr cstring; arg2: ptr cint;
-                                arg3: ptr pointer): void {.cdecl.}
-  ): cint {.ssh2Proc, importc.}
-
-
+    session: ptr LIBSSH2_SESSION,
+    username: cstring,
+    username_len: cuint,
+    password: cstring,
+    password_len: cuint,
+    passwd_change_cb: proc (a0: ptr LIBSSH2_SESSION, a1: cstringArray, a2: ptr cint, a3: ptr pointer): void,
+): cint {.importc: "libssh2_userauth_password_ex", header: "<libssh2.h>".}
 
 proc libssh2_userauth_publickey_fromfile_ex*(
-    session:      ptr LIBSSH2_SESSION1,
-    username:     cstring,
+    session: ptr LIBSSH2_SESSION,
+    username: cstring,
     username_len: cuint,
-    publickey:    cstring,
-    privatekey:   cstring,
-    passphrase:   cstring
-  ): cint {.ssh2Proc, importc.}
-
-
+    publickey: cstring,
+    privatekey: cstring,
+    passphrase: cstring,
+): cint {.importc: "libssh2_userauth_publickey_fromfile_ex", header: "<libssh2.h>".}
 
 proc libssh2_userauth_publickey*(
-    session:        ptr LIBSSH2_SESSION1,
-    username:       cstring,
-    pubkeydata:     ptr uint8,
+    session: ptr LIBSSH2_SESSION,
+    username: cstring,
+    pubkeydata: cstring,
     pubkeydata_len: csize_t,
-    sign_callback:  ptr proc (arg0: ptr LIBSSH2_SESSION1; arg1: ptr ptr uint8; arg2: ptr csize_t;
-                              arg3: ptr uint8; arg4: csize_t; arg5: ptr pointer): cint {.cdecl.},
-    abstract:       ptr pointer
-  ): cint {.ssh2Proc, importc.}
-
-
+    sign_callback: proc (a0: ptr LIBSSH2_SESSION, a1: cstringArray, a2: ptr csize_t, a3: cstring, a4: csize_t, a5: ptr pointer): cint,
+    abstract: ptr pointer,
+): cint {.importc: "libssh2_userauth_publickey", header: "<libssh2.h>".}
 
 proc libssh2_userauth_hostbased_fromfile_ex*(
-    session:            ptr LIBSSH2_SESSION1,
-    username:           cstring,
-    username_len:       cuint,
-    publickey:          cstring,
-    privatekey:         cstring,
-    passphrase:         cstring,
-    hostname:           cstring,
-    hostname_len:       cuint,
-    local_username:     cstring,
-    local_username_len: cuint
-  ): cint {.ssh2Proc, importc.}
-
-
+    session: ptr LIBSSH2_SESSION,
+    username: cstring,
+    username_len: cuint,
+    publickey: cstring,
+    privatekey: cstring,
+    passphrase: cstring,
+    hostname: cstring,
+    hostname_len: cuint,
+    local_username: cstring,
+    local_username_len: cuint,
+): cint {.importc: "libssh2_userauth_hostbased_fromfile_ex", header: "<libssh2.h>".}
 
 proc libssh2_userauth_publickey_frommemory*(
-    session:                ptr LIBSSH2_SESSION1,
-    username:               cstring,
-    username_len:           csize_t,
-    publickeyfiledata:      cstring,
-    publickeyfiledata_len:  csize_t,
-    privatekeyfiledata:     cstring,
+    session: ptr LIBSSH2_SESSION,
+    username: cstring,
+    username_len: csize_t,
+    publickeyfiledata: cstring,
+    publickeyfiledata_len: csize_t,
+    privatekeyfiledata: cstring,
     privatekeyfiledata_len: csize_t,
-    passphrase:             cstring
-  ): cint {.ssh2Proc, importc.}
-
-
+    passphrase: cstring,
+): cint {.importc: "libssh2_userauth_publickey_frommemory", header: "<libssh2.h>".}
 
 proc libssh2_userauth_keyboard_interactive_ex*(
-    session:           ptr LIBSSH2_SESSION1,
-    username:          cstring,
-    username_len:      cuint,
-    response_callback: ptr proc (arg0: cstring; arg1: cint; arg2: cstring; arg3: cint; arg4: cint;
-                                 arg5: ptr LIBSSH2_USERAUTH_KBDINT_PROMPT1;
-                                 arg6: ptr LIBSSH2_USERAUTH_KBDINT_RESPONSE1; arg7: ptr pointer): void {.
-                           cdecl.}
-  ): cint {.ssh2Proc, importc.}
+    session: ptr LIBSSH2_SESSION,
+    username: cstring,
+    username_len: cuint,
+    response_callback: proc (a0: cstring, a1: cint, a2: cstring, a3: cint, a4: cint, a5: ptr LIBSSH2_USERAUTH_KBDINT_PROMPT, a6: ptr LIBSSH2_USERAUTH_KBDINT_RESPONSE, a7: ptr pointer): void,
+): cint {.importc: "libssh2_userauth_keyboard_interactive_ex", header: "<libssh2.h>".}
 
-
+proc libssh2_userauth_publickey_sk*(
+    session: ptr LIBSSH2_SESSION,
+    username: cstring,
+    username_len: csize_t,
+    pubkeydata: cstring,
+    pubkeydata_len: csize_t,
+    privatekeydata: cstring,
+    privatekeydata_len: csize_t,
+    passphrase: cstring,
+    sign_callback: proc (a0: ptr LIBSSH2_SESSION, a1: ptr LIBSSH2_SK_SIG_INFO, a2: cstring, a3: csize_t, a4: cint, a5: uint8, a6: cstring, a7: cstring, a8: csize_t, a9: ptr pointer): cint,
+    abstract: ptr pointer,
+): cint {.importc: "libssh2_userauth_publickey_sk", header: "<libssh2.h>".}
 
 proc libssh2_poll*(
-    fds:     ptr LIBSSH2_POLLFD1,
-    nfds:    cuint,
-    timeout: int32
-  ): cint {.ssh2Proc, importc.}
-
-
+    fds: ptr LIBSSH2_POLLFD,
+    nfds: cuint,
+    timeout: clong,
+): cint {.importc: "libssh2_poll", header: "<libssh2.h>".}
 
 proc libssh2_channel_open_ex*(
-    session:          ptr LIBSSH2_SESSION1,
-    channel_type:     cstring,
+    session: ptr LIBSSH2_SESSION,
+    channel_type: cstring,
     channel_type_len: cuint,
-    window_size:      cuint,
-    packet_size:      cuint,
-    message:          cstring,
-    message_len:      cuint
-  ): ptr LIBSSH2_CHANNEL1 {.ssh2Proc, importc.}
-
-
+    window_size: cuint,
+    packet_size: cuint,
+    message: cstring,
+    message_len: cuint,
+): ptr LIBSSH2_CHANNEL {.importc: "libssh2_channel_open_ex", header: "<libssh2.h>".}
 
 proc libssh2_channel_direct_tcpip_ex*(
-    session: ptr LIBSSH2_SESSION1,
-    host:    cstring,
-    port:    cint,
-    shost:   cstring,
-    sport:   cint
-  ): ptr LIBSSH2_CHANNEL1 {.ssh2Proc, importc.}
+    session: ptr LIBSSH2_SESSION,
+    host: cstring,
+    port: cint,
+    shost: cstring,
+    sport: cint,
+): ptr LIBSSH2_CHANNEL {.importc: "libssh2_channel_direct_tcpip_ex", header: "<libssh2.h>".}
 
-
+proc libssh2_channel_direct_streamlocal_ex*(
+    session: ptr LIBSSH2_SESSION,
+    socket_path: cstring,
+    shost: cstring,
+    sport: cint,
+): ptr LIBSSH2_CHANNEL {.importc: "libssh2_channel_direct_streamlocal_ex", header: "<libssh2.h>".}
 
 proc libssh2_channel_forward_listen_ex*(
-    session:       ptr LIBSSH2_SESSION1,
-    host:          cstring,
-    port:          cint,
-    bound_port:    ptr cint,
-    queue_maxsize: cint
-  ): ptr LIBSSH2_LISTENER1 {.ssh2Proc, importc.}
+    session: ptr LIBSSH2_SESSION,
+    host: cstring,
+    port: cint,
+    bound_port: ptr cint,
+    queue_maxsize: cint,
+): ptr LIBSSH2_LISTENER {.importc: "libssh2_channel_forward_listen_ex", header: "<libssh2.h>".}
 
+proc libssh2_channel_forward_cancel*(listener: ptr LIBSSH2_LISTENER): cint {.importc: "libssh2_channel_forward_cancel", header: "<libssh2.h>".}
 
-
-proc libssh2_channel_forward_cancel*(
-    listener: ptr LIBSSH2_LISTENER1
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_forward_accept*(
-    listener: ptr LIBSSH2_LISTENER1
-  ): ptr LIBSSH2_CHANNEL1 {.ssh2Proc, importc.}
-
-
+proc libssh2_channel_forward_accept*(listener: ptr LIBSSH2_LISTENER): ptr LIBSSH2_CHANNEL {.importc: "libssh2_channel_forward_accept", header: "<libssh2.h>".}
 
 proc libssh2_channel_setenv_ex*(
-    channel:     ptr LIBSSH2_CHANNEL1,
-    varname:     cstring,
+    channel: ptr LIBSSH2_CHANNEL,
+    varname: cstring,
     varname_len: cuint,
-    value:       cstring,
-    value_len:   cuint
-  ): cint {.ssh2Proc, importc.}
+    value: cstring,
+    value_len: cuint,
+): cint {.importc: "libssh2_channel_setenv_ex", header: "<libssh2.h>".}
 
-
-
-proc libssh2_channel_request_auth_agent*(
-    channel: ptr LIBSSH2_CHANNEL1
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_channel_request_auth_agent*(channel: ptr LIBSSH2_CHANNEL): cint {.importc: "libssh2_channel_request_auth_agent", header: "<libssh2.h>".}
 
 proc libssh2_channel_request_pty_ex*(
-    channel:   ptr LIBSSH2_CHANNEL1,
-    term:      cstring,
-    term_len:  cuint,
-    modes:     cstring,
+    channel: ptr LIBSSH2_CHANNEL,
+    term: cstring,
+    term_len: cuint,
+    modes: cstring,
     modes_len: cuint,
-    width:     cint,
-    height:    cint,
-    width_px:  cint,
-    height_px: cint
-  ): cint {.ssh2Proc, importc.}
-
-
+    width: cint,
+    height: cint,
+    width_px: cint,
+    height_px: cint,
+): cint {.importc: "libssh2_channel_request_pty_ex", header: "<libssh2.h>".}
 
 proc libssh2_channel_request_pty_size_ex*(
-    channel:   ptr LIBSSH2_CHANNEL1,
-    width:     cint,
-    height:    cint,
-    width_px:  cint,
-    height_px: cint
-  ): cint {.ssh2Proc, importc.}
-
-
+    channel: ptr LIBSSH2_CHANNEL,
+    width: cint,
+    height: cint,
+    width_px: cint,
+    height_px: cint,
+): cint {.importc: "libssh2_channel_request_pty_size_ex", header: "<libssh2.h>".}
 
 proc libssh2_channel_x11_req_ex*(
-    channel:           ptr LIBSSH2_CHANNEL1,
+    channel: ptr LIBSSH2_CHANNEL,
     single_connection: cint,
-    auth_proto:        cstring,
-    auth_cookie:       cstring,
-    screen_number:     cint
-  ): cint {.ssh2Proc, importc.}
+    auth_proto: cstring,
+    auth_cookie: cstring,
+    screen_number: cint,
+): cint {.importc: "libssh2_channel_x11_req_ex", header: "<libssh2.h>".}
 
-
+proc libssh2_channel_signal_ex*(
+    channel: ptr LIBSSH2_CHANNEL,
+    signame: cstring,
+    signame_len: csize_t,
+): cint {.importc: "libssh2_channel_signal_ex", header: "<libssh2.h>".}
 
 proc libssh2_channel_process_startup*(
-    channel:     ptr LIBSSH2_CHANNEL1,
-    request:     cstring,
+    channel: ptr LIBSSH2_CHANNEL,
+    request: cstring,
     request_len: cuint,
-    message:     cstring,
-    message_len: cuint
-  ): cint {.ssh2Proc, importc.}
-
-
+    message: cstring,
+    message_len: cuint,
+): cint {.importc: "libssh2_channel_process_startup", header: "<libssh2.h>".}
 
 proc libssh2_channel_read_ex*(
-    channel:   ptr LIBSSH2_CHANNEL1,
+    channel: ptr LIBSSH2_CHANNEL,
     stream_id: cint,
-    buf:       cstring,
-    buflen:    csize_t
-  ): csize_t {.ssh2Proc, importc.}
+    buf: ptr char,
+    buflen: csize_t,
+): csize_t {.importc: "libssh2_channel_read_ex", header: "<libssh2.h>".}
 
-
-
-proc libssh2_poll_channel_read*(
-    channel:  ptr LIBSSH2_CHANNEL1,
-    extended: cint
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_poll_channel_read*(channel: ptr LIBSSH2_CHANNEL, extended: cint): cint {.importc: "libssh2_poll_channel_read", header: "<libssh2.h>".}
 
 proc libssh2_channel_window_read_ex*(
-    channel:             ptr LIBSSH2_CHANNEL1,
-    read_avail:          ptr uint32,
-    window_size_initial: ptr uint32
-  ): uint32 {.ssh2Proc, importc.}
-
-
+    channel: ptr LIBSSH2_CHANNEL,
+    read_avail: ptr culong,
+    window_size_initial: ptr culong,
+): culong {.importc: "libssh2_channel_window_read_ex", header: "<libssh2.h>".}
 
 proc libssh2_channel_receive_window_adjust*(
-    channel:    ptr LIBSSH2_CHANNEL1,
-    adjustment: uint32,
-    force:      uint8
-  ): uint32 {.ssh2Proc, importc.}
-
-
+    channel: ptr LIBSSH2_CHANNEL,
+    adjustment: culong,
+    force: char,
+): culong {.importc: "libssh2_channel_receive_window_adjust", header: "<libssh2.h>".}
 
 proc libssh2_channel_receive_window_adjust2*(
-    channel:     ptr LIBSSH2_CHANNEL1,
-    adjustment:  uint32,
-    force:       uint8,
-    storewindow: ptr cuint
-  ): cint {.ssh2Proc, importc.}
-
-
+    channel: ptr LIBSSH2_CHANNEL,
+    adjustment: culong,
+    force: char,
+    storewindow: ptr cuint,
+): cint {.importc: "libssh2_channel_receive_window_adjust2", header: "<libssh2.h>".}
 
 proc libssh2_channel_write_ex*(
-    channel:   ptr LIBSSH2_CHANNEL1,
+    channel: ptr LIBSSH2_CHANNEL,
     stream_id: cint,
-    buf:       cstring,
-    buflen:    csize_t
-  ): csize_t {.ssh2Proc, importc.}
+    buf: cstring,
+    buflen: csize_t,
+): csize_t {.importc: "libssh2_channel_write_ex", header: "<libssh2.h>".}
 
+proc libssh2_channel_window_write_ex*(channel: ptr LIBSSH2_CHANNEL, window_size_initial: ptr culong): culong {.importc: "libssh2_channel_window_write_ex", header: "<libssh2.h>".}
 
+proc libssh2_session_set_blocking*(session: ptr LIBSSH2_SESSION, blocking: cint): void {.importc: "libssh2_session_set_blocking", header: "<libssh2.h>".}
 
-proc libssh2_channel_window_write_ex*(
-    channel:             ptr LIBSSH2_CHANNEL1,
-    window_size_initial: ptr uint32
-  ): uint32 {.ssh2Proc, importc.}
+proc libssh2_session_get_blocking*(session: ptr LIBSSH2_SESSION): cint {.importc: "libssh2_session_get_blocking", header: "<libssh2.h>".}
 
+proc libssh2_channel_set_blocking*(channel: ptr LIBSSH2_CHANNEL, blocking: cint): void {.importc: "libssh2_channel_set_blocking", header: "<libssh2.h>".}
 
+proc libssh2_session_set_timeout*(session: ptr LIBSSH2_SESSION, timeout: clong): void {.importc: "libssh2_session_set_timeout", header: "<libssh2.h>".}
 
-proc libssh2_session_set_blocking*(
-    session:  ptr LIBSSH2_SESSION1,
-    blocking: cint
-  ): void {.ssh2Proc, importc.}
+proc libssh2_session_get_timeout*(session: ptr LIBSSH2_SESSION): clong {.importc: "libssh2_session_get_timeout", header: "<libssh2.h>".}
 
+proc libssh2_session_set_read_timeout*(session: ptr LIBSSH2_SESSION, timeout: clong): void {.importc: "libssh2_session_set_read_timeout", header: "<libssh2.h>".}
 
+proc libssh2_session_get_read_timeout*(session: ptr LIBSSH2_SESSION): clong {.importc: "libssh2_session_get_read_timeout", header: "<libssh2.h>".}
 
-proc libssh2_session_get_blocking*(
-    session: ptr LIBSSH2_SESSION1
-  ): cint {.ssh2Proc, importc.}
+proc libssh2_channel_handle_extended_data*(channel: ptr LIBSSH2_CHANNEL, ignore_mode: cint): void {.importc: "libssh2_channel_handle_extended_data", header: "<libssh2.h>".}
 
+proc libssh2_channel_handle_extended_data2*(channel: ptr LIBSSH2_CHANNEL, ignore_mode: cint): cint {.importc: "libssh2_channel_handle_extended_data2", header: "<libssh2.h>".}
 
+proc libssh2_channel_flush_ex*(channel: ptr LIBSSH2_CHANNEL, streamid: cint): cint {.importc: "libssh2_channel_flush_ex", header: "<libssh2.h>".}
 
-proc libssh2_channel_set_blocking*(
-    channel:  ptr LIBSSH2_CHANNEL1,
-    blocking: cint
-  ): void {.ssh2Proc, importc.}
-
-
-
-proc libssh2_session_set_timeout*(
-    session: ptr LIBSSH2_SESSION1,
-    timeout: int32
-  ): void {.ssh2Proc, importc.}
-
-
-
-proc libssh2_session_get_timeout*(
-    session: ptr LIBSSH2_SESSION1
-  ): int32 {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_handle_extended_data*(
-    channel:     ptr LIBSSH2_CHANNEL1,
-    ignore_mode: cint
-  ): void {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_handle_extended_data2*(
-    channel:     ptr LIBSSH2_CHANNEL1,
-    ignore_mode: cint
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_flush_ex*(
-    channel:   ptr LIBSSH2_CHANNEL1,
-    streamid1: cint
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_get_exit_status*(
-    channel: ptr LIBSSH2_CHANNEL1
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_channel_get_exit_status*(channel: ptr LIBSSH2_CHANNEL): cint {.importc: "libssh2_channel_get_exit_status", header: "<libssh2.h>".}
 
 proc libssh2_channel_get_exit_signal*(
-    channel:        ptr LIBSSH2_CHANNEL1,
-    exitsignal:     ptr cstring,
+    channel: ptr LIBSSH2_CHANNEL,
+    exitsignal: cstringArray,
     exitsignal_len: ptr csize_t,
-    errmsg:         ptr cstring,
-    errmsg_len:     ptr csize_t,
-    langtag:        ptr cstring,
-    langtag_len:    ptr csize_t
-  ): cint {.ssh2Proc, importc.}
+    errmsg: cstringArray,
+    errmsg_len: ptr csize_t,
+    langtag: cstringArray,
+    langtag_len: ptr csize_t,
+): cint {.importc: "libssh2_channel_get_exit_signal", header: "<libssh2.h>".}
 
+proc libssh2_channel_send_eof*(channel: ptr LIBSSH2_CHANNEL): cint {.importc: "libssh2_channel_send_eof", header: "<libssh2.h>".}
 
+proc libssh2_channel_eof*(channel: ptr LIBSSH2_CHANNEL): cint {.importc: "libssh2_channel_eof", header: "<libssh2.h>".}
 
-proc libssh2_channel_send_eof*(
-    channel: ptr LIBSSH2_CHANNEL1
-  ): cint {.ssh2Proc, importc.}
+proc libssh2_channel_wait_eof*(channel: ptr LIBSSH2_CHANNEL): cint {.importc: "libssh2_channel_wait_eof", header: "<libssh2.h>".}
 
+proc libssh2_channel_close*(channel: ptr LIBSSH2_CHANNEL): cint {.importc: "libssh2_channel_close", header: "<libssh2.h>".}
 
+proc libssh2_channel_wait_closed*(channel: ptr LIBSSH2_CHANNEL): cint {.importc: "libssh2_channel_wait_closed", header: "<libssh2.h>".}
 
-proc libssh2_channel_eof*(
-    channel: ptr LIBSSH2_CHANNEL1
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_wait_eof*(
-    channel: ptr LIBSSH2_CHANNEL1
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_close*(
-    channel: ptr LIBSSH2_CHANNEL1
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_wait_closed*(
-    channel: ptr LIBSSH2_CHANNEL1
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_channel_free*(
-    channel: ptr LIBSSH2_CHANNEL1
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_channel_free*(channel: ptr LIBSSH2_CHANNEL): cint {.importc: "libssh2_channel_free", header: "<libssh2.h>".}
 
 proc libssh2_scp_recv*(
-    session: ptr LIBSSH2_SESSION1,
-    path:    cstring,
-    sb:      ptr stat
-  ): ptr LIBSSH2_CHANNEL1 {.ssh2Proc, importc.}
-
-
+    session: ptr LIBSSH2_SESSION,
+    path: cstring,
+    sb: ptr stat,
+): ptr LIBSSH2_CHANNEL {.importc: "libssh2_scp_recv", header: "<libssh2.h>".}
 
 proc libssh2_scp_recv2*(
-    session: ptr LIBSSH2_SESSION1,
-    path:    cstring,
-    sb:      ptr libssh2_struct_stat
-  ): ptr LIBSSH2_CHANNEL1 {.ssh2Proc, importc.}
-
-
+    session: ptr LIBSSH2_SESSION,
+    path: cstring,
+    sb: ptr libssh2_struct_stat,
+): ptr LIBSSH2_CHANNEL {.importc: "libssh2_scp_recv2", header: "<libssh2.h>".}
 
 proc libssh2_scp_send_ex*(
-    session: ptr LIBSSH2_SESSION1,
-    path:    cstring,
-    mode:    cint,
-    size:    csize_t,
-    mtime:   int32,
-    atime:   int32
-  ): ptr LIBSSH2_CHANNEL1 {.ssh2Proc, importc.}
-
-
+    session: ptr LIBSSH2_SESSION,
+    path: cstring,
+    mode: cint,
+    size: csize_t,
+    mtime: clong,
+    atime: clong,
+): ptr LIBSSH2_CHANNEL {.importc: "libssh2_scp_send_ex", header: "<libssh2.h>".}
 
 proc libssh2_scp_send64*(
-    session: ptr LIBSSH2_SESSION1,
-    path:    cstring,
-    mode:    cint,
-    size:    libssh2_int64_t,
-    mtime:   time_t,
-    atime:   time_t
-  ): ptr LIBSSH2_CHANNEL1 {.ssh2Proc, importc.}
-
-
+    session: ptr LIBSSH2_SESSION,
+    path: cstring,
+    mode: cint,
+    size: libssh2_int64_t,
+    mtime: time_t,
+    atime: time_t,
+): ptr LIBSSH2_CHANNEL {.importc: "libssh2_scp_send64", header: "<libssh2.h>".}
 
 proc libssh2_base64_decode*(
-    session:  ptr LIBSSH2_SESSION1,
-    dest:     ptr cstring,
+    session: ptr LIBSSH2_SESSION,
+    dest: cstringArray,
     dest_len: ptr cuint,
-    src:      cstring,
-    src_len:  cuint
-  ): cint {.ssh2Proc, importc.}
+    src: cstring,
+    src_len: cuint,
+): cint {.importc: "libssh2_base64_decode", header: "<libssh2.h>".}
 
+proc libssh2_version*(req_version_num: cint): cstring {.importc: "libssh2_version", header: "<libssh2.h>".}
 
+proc libssh2_crypto_engine*(): libssh2_crypto_engine_t {.importc: "libssh2_crypto_engine", header: "<libssh2.h>".}
 
-proc libssh2_version*(req_version_num: cint): cstring {.ssh2Proc, importc.}
-
-
-
-proc libssh2_knownhost_init*(
-    session: ptr LIBSSH2_SESSION1
-  ): ptr LIBSSH2_KNOWNHOSTS1 {.ssh2Proc, importc.}
-
-
+proc libssh2_knownhost_init*(session: ptr LIBSSH2_SESSION): ptr LIBSSH2_KNOWNHOSTS {.importc: "libssh2_knownhost_init", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_add*(
-    hosts:    ptr LIBSSH2_KNOWNHOSTS1,
-    host:     cstring,
-    salt:     cstring,
-    key:      cstring,
-    keylen:   csize_t,
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
+    host: cstring,
+    salt: cstring,
+    key: cstring,
+    keylen: csize_t,
     typemask: cint,
-    store:    ptr ptr libssh2_knownhost
-  ): cint {.ssh2Proc, importc.}
-
-
+    store: ptr ptr libssh2_knownhost,
+): cint {.importc: "libssh2_knownhost_add", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_addc*(
-    hosts:      ptr LIBSSH2_KNOWNHOSTS1,
-    host:       cstring,
-    salt:       cstring,
-    key:        cstring,
-    keylen:     csize_t,
-    comment:    cstring,
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
+    host: cstring,
+    salt: cstring,
+    key: cstring,
+    keylen: csize_t,
+    comment: cstring,
     commentlen: csize_t,
-    typemask:   cint,
-    store:      ptr ptr libssh2_knownhost
-  ): cint {.ssh2Proc, importc.}
-
-
+    typemask: cint,
+    store: ptr ptr libssh2_knownhost,
+): cint {.importc: "libssh2_knownhost_addc", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_check*(
-    hosts:     ptr LIBSSH2_KNOWNHOSTS1,
-    host:      cstring,
-    key:       cstring,
-    keylen:    csize_t,
-    typemask:  cint,
-    knownhost: ptr ptr libssh2_knownhost
-  ): cint {.ssh2Proc, importc.}
-
-
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
+    host: cstring,
+    key: cstring,
+    keylen: csize_t,
+    typemask: cint,
+    knownhost: ptr ptr libssh2_knownhost,
+): cint {.importc: "libssh2_knownhost_check", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_checkp*(
-    hosts:     ptr LIBSSH2_KNOWNHOSTS1,
-    host:      cstring,
-    port:      cint,
-    key:       cstring,
-    keylen:    csize_t,
-    typemask:  cint,
-    knownhost: ptr ptr libssh2_knownhost
-  ): cint {.ssh2Proc, importc.}
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
+    host: cstring,
+    port: cint,
+    key: cstring,
+    keylen: csize_t,
+    typemask: cint,
+    knownhost: ptr ptr libssh2_knownhost,
+): cint {.importc: "libssh2_knownhost_checkp", header: "<libssh2.h>".}
 
+proc libssh2_knownhost_del*(hosts: ptr LIBSSH2_KNOWNHOSTS, entry: ptr libssh2_knownhost): cint {.importc: "libssh2_knownhost_del", header: "<libssh2.h>".}
 
-
-proc libssh2_knownhost_del*(
-    hosts: ptr LIBSSH2_KNOWNHOSTS1,
-    entry: ptr libssh2_knownhost
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_knownhost_free*(
-    hosts: ptr LIBSSH2_KNOWNHOSTS1
-  ): void {.ssh2Proc, importc.}
-
-
+proc libssh2_knownhost_free*(hosts: ptr LIBSSH2_KNOWNHOSTS): void {.importc: "libssh2_knownhost_free", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_readline*(
-    hosts:  ptr LIBSSH2_KNOWNHOSTS1,
-    line:   cstring,
-    len:    csize_t,
-    type_f: cint
-  ): cint {.ssh2Proc, importc.}
-
-
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
+    line: cstring,
+    len: csize_t,
+    `type`: cint,
+): cint {.importc: "libssh2_knownhost_readline", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_readfile*(
-    hosts:    ptr LIBSSH2_KNOWNHOSTS1,
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
     filename: cstring,
-    type_f:   cint
-  ): cint {.ssh2Proc, importc.}
-
-
+    `type`: cint,
+): cint {.importc: "libssh2_knownhost_readfile", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_writeline*(
-    hosts:  ptr LIBSSH2_KNOWNHOSTS1,
-    known:  ptr libssh2_knownhost,
-    buffer: cstring,
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
+    known: ptr libssh2_knownhost,
+    buffer: ptr char,
     buflen: csize_t,
     outlen: ptr csize_t,
-    type_f: cint
-  ): cint {.ssh2Proc, importc.}
-
-
+    `type`: cint,
+): cint {.importc: "libssh2_knownhost_writeline", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_writefile*(
-    hosts:    ptr LIBSSH2_KNOWNHOSTS1,
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
     filename: cstring,
-    type_f:   cint
-  ): cint {.ssh2Proc, importc.}
-
-
+    `type`: cint,
+): cint {.importc: "libssh2_knownhost_writefile", header: "<libssh2.h>".}
 
 proc libssh2_knownhost_get*(
-    hosts: ptr LIBSSH2_KNOWNHOSTS1,
+    hosts: ptr LIBSSH2_KNOWNHOSTS,
     store: ptr ptr libssh2_knownhost,
-    prev:  ptr libssh2_knownhost
-  ): cint {.ssh2Proc, importc.}
+    prev: ptr libssh2_knownhost,
+): cint {.importc: "libssh2_knownhost_get", header: "<libssh2.h>".}
 
+proc libssh2_agent_init*(session: ptr LIBSSH2_SESSION): ptr LIBSSH2_AGENT {.importc: "libssh2_agent_init", header: "<libssh2.h>".}
 
+proc libssh2_agent_connect*(agent: ptr LIBSSH2_AGENT): cint {.importc: "libssh2_agent_connect", header: "<libssh2.h>".}
 
-proc libssh2_agent_init*(
-    session: ptr LIBSSH2_SESSION1
-  ): ptr LIBSSH2_AGENT1 {.ssh2Proc, importc.}
-
-
-
-proc libssh2_agent_connect*(
-    agent: ptr LIBSSH2_AGENT1
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_agent_list_identities*(
-    agent: ptr LIBSSH2_AGENT1
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_agent_list_identities*(agent: ptr LIBSSH2_AGENT): cint {.importc: "libssh2_agent_list_identities", header: "<libssh2.h>".}
 
 proc libssh2_agent_get_identity*(
-    agent: ptr LIBSSH2_AGENT1,
+    agent: ptr LIBSSH2_AGENT,
     store: ptr ptr libssh2_agent_publickey,
-    prev:  ptr libssh2_agent_publickey
-  ): cint {.ssh2Proc, importc.}
-
-
+    prev: ptr libssh2_agent_publickey,
+): cint {.importc: "libssh2_agent_get_identity", header: "<libssh2.h>".}
 
 proc libssh2_agent_userauth*(
-    agent:    ptr LIBSSH2_AGENT1,
+    agent: ptr LIBSSH2_AGENT,
     username: cstring,
-    identity: ptr libssh2_agent_publickey
-  ): cint {.ssh2Proc, importc.}
+    identity: ptr libssh2_agent_publickey,
+): cint {.importc: "libssh2_agent_userauth", header: "<libssh2.h>".}
 
+proc libssh2_agent_sign*(
+    agent: ptr LIBSSH2_AGENT,
+    identity: ptr libssh2_agent_publickey,
+    sig: cstringArray,
+    s_len: ptr csize_t,
+    data: cstring,
+    d_len: csize_t,
+    `method`: cstring,
+    method_len: cuint,
+): cint {.importc: "libssh2_agent_sign", header: "<libssh2.h>".}
 
+proc libssh2_agent_disconnect*(agent: ptr LIBSSH2_AGENT): cint {.importc: "libssh2_agent_disconnect", header: "<libssh2.h>".}
 
-proc libssh2_agent_disconnect*(
-    agent: ptr LIBSSH2_AGENT1
-  ): cint {.ssh2Proc, importc.}
+proc libssh2_agent_free*(agent: ptr LIBSSH2_AGENT): void {.importc: "libssh2_agent_free", header: "<libssh2.h>".}
 
+proc libssh2_agent_set_identity_path*(agent: ptr LIBSSH2_AGENT, path: cstring): void {.importc: "libssh2_agent_set_identity_path", header: "<libssh2.h>".}
 
-
-proc libssh2_agent_free*(agent: ptr LIBSSH2_AGENT1): void {.ssh2Proc, importc.}
-
-
-
-proc libssh2_agent_set_identity_path*(
-    agent: ptr LIBSSH2_AGENT1,
-    path:  cstring
-  ): void {.ssh2Proc, importc.}
-
-
-
-proc libssh2_agent_get_identity_path*(
-    agent: ptr LIBSSH2_AGENT1
-  ): cstring {.ssh2Proc, importc.}
-
-
+proc libssh2_agent_get_identity_path*(agent: ptr LIBSSH2_AGENT): cstring {.importc: "libssh2_agent_get_identity_path", header: "<libssh2.h>".}
 
 proc libssh2_keepalive_config*(
-    session:    ptr LIBSSH2_SESSION1,
+    session: ptr LIBSSH2_SESSION,
     want_reply: cint,
-    interval:   cuint
-  ): void {.ssh2Proc, importc.}
+    interval: cuint,
+): void {.importc: "libssh2_keepalive_config", header: "<libssh2.h>".}
 
+proc libssh2_keepalive_send*(session: ptr LIBSSH2_SESSION, seconds_to_next: ptr cint): cint {.importc: "libssh2_keepalive_send", header: "<libssh2.h>".}
 
-
-proc libssh2_keepalive_send*(
-    session:         ptr LIBSSH2_SESSION1,
-    seconds_to_next: ptr cint
-  ): cint {.ssh2Proc, importc.}
-
-
-
-proc libssh2_trace*(
-    session: ptr LIBSSH2_SESSION1,
-    bitmask: cint
-  ): cint {.ssh2Proc, importc.}
-
-
+proc libssh2_trace*(session: ptr LIBSSH2_SESSION, bitmask: cint): cint {.importc: "libssh2_trace", header: "<libssh2.h>".}
 
 proc libssh2_trace_sethandler*(
-    session:  ptr LIBSSH2_SESSION1,
-    context:  pointer,
-    callback: libssh2_trace_handler_func
-  ): cint {.ssh2Proc, importc.}
-
-
-
+    session: ptr LIBSSH2_SESSION,
+    context: pointer,
+    callback: libssh2_trace_handler_func,
+): cint {.importc: "libssh2_trace_sethandler", header: "<libssh2.h>".}

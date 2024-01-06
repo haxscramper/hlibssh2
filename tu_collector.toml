@@ -1,8 +1,11 @@
-indexing_tool = "{tool_dir}/build/utils_debug/reflection_tool"
-compilation_database = "{config_dir}/libssh2/compile_commands.json"
-toolchain_include = "{tool_dir}/toolchain/llvm/lib/clang/17/include"
+indexing_tool = "{haxorg_root}/build/utils_debug/reflection_tool"
+toolchain_include = "{haxorg_root}/toolchain/llvm/lib/clang/17/include"
 output_directory = "{config_dir}/src/hlibssh2"
 input = [ "{config_dir}/libssh2/include" ]
+build_root = "{config_dir}/libssh2/build"
+source_root = "{config_dir}/libssh2"
+header_root = "{config_dir}/libssh2/include"
+cmake_configure_options = ["-DBUILD_TESTS=OFF"]
 
 [nim]
 function_renames = [
@@ -12,7 +15,3 @@ function_renames = [
 universal_import = [
   "libssh2_config.nim"
 ]
-
-# cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .. 
-# compdb -p build/ list > compile_commands.json
-
