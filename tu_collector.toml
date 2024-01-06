@@ -7,11 +7,10 @@ source_root = "{config_dir}/libssh2"
 header_root = "{config_dir}/libssh2/include"
 cmake_configure_options = ["-DBUILD_TESTS=OFF"]
 
-[nim]
-function_renames = [
-  { original = "git_odb_write_pack", renamed = "git_odb_write_pack_fn" }
-]
 
+[nim]
 universal_import = [
   "libssh2_config.nim"
 ]
+
+with_header_imports = false
