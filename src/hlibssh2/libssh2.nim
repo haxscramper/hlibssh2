@@ -1,3 +1,5 @@
+import "./libssh2_config.nim" ## From gen file
+
 type
   LIBSSH2_USERAUTH_KBDINT_PROMPT* {.bycopy.} = object
     text   *: ptr char
@@ -42,9 +44,14 @@ type
 
   LIBSSH2_POLLFD* {.bycopy.} = object
     `type`  *: char
-    fd      *:
+    fd      *: LIBSSH2_POLLFD_fd_field
     events  *: culong
     revents *: culong
+
+  LIBSSH2_POLLFD_fd_field* {.bycopy.} = object
+    socket   *: libssh2_socket_t
+    channel  *: ptr LIBSSH2_CHANNEL
+    listener *: ptr LIBSSH2_LISTENER
 
   libssh2_knownhost* {.bycopy.} = object
     magic    *: cuint

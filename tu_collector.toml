@@ -10,7 +10,7 @@ cmake_configure_options = ["-DBUILD_TESTS=OFF"]
 
 [nim]
 universal_import = [
-  # "libssh2_config.nim"
+  "libssh2_config.nim"
 ]
 
 with_header_imports = false

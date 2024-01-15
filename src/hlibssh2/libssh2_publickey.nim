@@ -1,3 +1,4 @@
+import "./libssh2_config.nim" ## From gen file
 import "./libssh2.nim"
 
 type
