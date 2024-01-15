@@ -1,18 +1,17 @@
-import "./libssh2_config.nim" ## From gen file
 import "./libssh2.nim"
 
 type
-  LIBSSH2_PUBLICKEY* {.importc, incompleteStruct.} = object
+  LIBSSH2_PUBLICKEY* {.incompleteStruct.} = object
 
 
-  libssh2_publickey_attribute* {.importc, bycopy.} = object
+  libssh2_publickey_attribute* {.bycopy.} = object
     name      *: cstring
     name_len  *: culong
     value     *: cstring
     value_len *: culong
     mandatory *: char
 
-  libssh2_publickey_list* {.importc, bycopy.} = object
+  libssh2_publickey_list* {.bycopy.} = object
     packet    *: ptr char
     name      *: cstring
     name_len  *: culong

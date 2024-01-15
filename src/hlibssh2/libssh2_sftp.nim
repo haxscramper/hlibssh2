@@ -1,8 +1,7 @@
-import "./libssh2_config.nim" ## From gen file
 import "./libssh2.nim"
 
 type
-  _LIBSSH2_SFTP_ATTRIBUTES* {.importc, incompleteStruct.} = object
+  _LIBSSH2_SFTP_ATTRIBUTES* {.incompleteStruct.} = object
     flags       *: culong
     filesize    *: libssh2_uint64_t
     uid         *: culong
@@ -11,7 +10,7 @@ type
     atime       *: culong
     mtime       *: culong
 
-  _LIBSSH2_SFTP_STATVFS* {.importc, incompleteStruct.} = object
+  _LIBSSH2_SFTP_STATVFS* {.incompleteStruct.} = object
     f_bsize   *: libssh2_uint64_t
     f_frsize  *: libssh2_uint64_t
     f_blocks  *: libssh2_uint64_t
@@ -24,7 +23,7 @@ type
     f_flag    *: libssh2_uint64_t
     f_namemax *: libssh2_uint64_t
 
-  LIBSSH2_SFTP_ATTRIBUTES* {.importc, bycopy.} = object
+  LIBSSH2_SFTP_ATTRIBUTES* {.bycopy.} = object
     flags       *: culong
     filesize    *: libssh2_uint64_t
     uid         *: culong
@@ -33,7 +32,7 @@ type
     atime       *: culong
     mtime       *: culong
 
-  LIBSSH2_SFTP_STATVFS* {.importc, bycopy.} = object
+  LIBSSH2_SFTP_STATVFS* {.bycopy.} = object
     f_bsize   *: libssh2_uint64_t
     f_frsize  *: libssh2_uint64_t
     f_blocks  *: libssh2_uint64_t
@@ -46,10 +45,10 @@ type
     f_flag    *: libssh2_uint64_t
     f_namemax *: libssh2_uint64_t
 
-  LIBSSH2_SFTP* {.importc, incompleteStruct.} = object
+  LIBSSH2_SFTP* {.incompleteStruct.} = object
 
 
-  LIBSSH2_SFTP_HANDLE* {.importc, incompleteStruct.} = object
+  LIBSSH2_SFTP_HANDLE* {.incompleteStruct.} = object
 
 
 

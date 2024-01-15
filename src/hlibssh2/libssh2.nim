@@ -1,16 +1,14 @@
-import "./libssh2_config.nim" ## From gen file
-
 type
-  LIBSSH2_USERAUTH_KBDINT_PROMPT* {.importc, bycopy.} = object
+  LIBSSH2_USERAUTH_KBDINT_PROMPT* {.bycopy.} = object
     text   *: ptr char
     length *: csize_t
     echo   *: char
 
-  LIBSSH2_USERAUTH_KBDINT_RESPONSE* {.importc, bycopy.} = object
+  LIBSSH2_USERAUTH_KBDINT_RESPONSE* {.bycopy.} = object
     text   *: ptr char
     length *: cuint
 
-  LIBSSH2_SK_SIG_INFO* {.importc, bycopy.} = object
+  LIBSSH2_SK_SIG_INFO* {.bycopy.} = object
     flags     *: uint8
     counter   *: uint32
     sig_r     *: ptr char
@@ -18,22 +16,22 @@ type
     sig_s     *: ptr char
     sig_s_len *: csize_t
 
-  LIBSSH2_SESSION* {.importc, incompleteStruct.} = object
+  LIBSSH2_SESSION* {.incompleteStruct.} = object
 
 
-  LIBSSH2_CHANNEL* {.importc, incompleteStruct.} = object
+  LIBSSH2_CHANNEL* {.incompleteStruct.} = object
 
 
-  LIBSSH2_LISTENER* {.importc, incompleteStruct.} = object
+  LIBSSH2_LISTENER* {.incompleteStruct.} = object
 
 
-  LIBSSH2_KNOWNHOSTS* {.importc, incompleteStruct.} = object
+  LIBSSH2_KNOWNHOSTS* {.incompleteStruct.} = object
 
 
-  LIBSSH2_AGENT* {.importc, incompleteStruct.} = object
+  LIBSSH2_AGENT* {.incompleteStruct.} = object
 
 
-  LIBSSH2_PRIVKEY_SK* {.importc, bycopy.} = object
+  LIBSSH2_PRIVKEY_SK* {.bycopy.} = object
     algorithm     *: cint
     flags         *: uint8
     application   *: cstring
@@ -42,20 +40,20 @@ type
     sign_callback *: proc (a0: ptr LIBSSH2_SESSION, a1: ptr LIBSSH2_SK_SIG_INFO, a2: cstring, a3: csize_t, a4: cint, a5: uint8, a6: cstring, a7: cstring, a8: csize_t, a9: ptr pointer): cint
     orig_abstract *: ptr pointer
 
-  LIBSSH2_POLLFD* {.importc, bycopy.} = object
+  LIBSSH2_POLLFD* {.bycopy.} = object
     `type`  *: char
     fd      *:
     events  *: culong
     revents *: culong
 
-  libssh2_knownhost* {.importc, bycopy.} = object
+  libssh2_knownhost* {.bycopy.} = object
     magic    *: cuint
     node     *: pointer
     name     *: ptr char
     key      *: ptr char
     typemask *: cint
 
-  libssh2_agent_publickey* {.importc, bycopy.} = object
+  libssh2_agent_publickey* {.bycopy.} = object
     magic    *: cuint
     node     *: pointer
     blob     *: ptr char
